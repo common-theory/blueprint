@@ -4,5 +4,5 @@ services:
     image: ctheory/static-server:latest
     deploy:
       mode: global
-      constraints:
-        - node.role != manager
+      ports:
+        - "3000:80"
