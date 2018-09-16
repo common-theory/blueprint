@@ -1,0 +1,8 @@
+version: '3'
+services:
+  static-content:
+    image: ctheory/static-server:latest
+    deploy:
+      mode: global
+      constraints:
+        - node.role != manager
