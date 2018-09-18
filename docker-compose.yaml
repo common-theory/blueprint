@@ -3,6 +3,40 @@ services:
   static-content:
     image: ctheory/static-server:latest
     deploy:
-      mode: global
+      mode: replicated
+      replicas: 2
+      placement:
+        constraints:
+          - node.role != manager
+      resources:
+        reservations:
+          cpus: '0.25'
+          memory: 512M
     ports:
       - "80:3000"
+  mainnet:
+    image: ctheory/eos-mainnet:latest
+    deploy:
+      mode: replicated
+      replicas: 2
+      placement:
+        constraints:
+          - node.role != manager
+      resources:
+        reservations:
+          cpus: '0.51'
+          memory: 1024M
+    ports:
+      - "8888:8888"
+      - "9876:9876"
+    volumes:
+      - "/mnt/volume1/mainnet:/data"
+# TODO: Generate genesis block, create docker image, then implement here
+  testnet:
+    image: eosio/eos:v1.2.5
+    deploy:
+      mode: replicated
+      replicas: 0
+      placement:
+        constraints:
+          - node.role != manager
