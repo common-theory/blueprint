@@ -1,6 +1,6 @@
-version: '3'
+version: '3.7'
 services:
-  static-content:
+  commontheoryio:
     image: ctheory/static-server:latest
     deploy:
       mode: replicated
@@ -14,6 +14,15 @@ services:
           memory: 512M
     ports:
       - "80:3000"
+      - "443:3001"
+    secrets:
+      - commontheory_cert.pem
+      - commontheory_privkey.pem
+    environment:
+      ENABLE_HTTPS: 'true'
+      HTTPS_CERT: /run/secrets/commontheory_cert.pem
+      HTTPS_PRIVATE_KEY: /run/secrets/commontheory_privkey.pem
+      REDIRECT_HTTPS: 'true'
   mainnet:
     image: ctheory/eos-mainnet:latest
     deploy:
@@ -27,6 +36,7 @@ services:
           cpus: '0.51'
           memory: 1024M
     ports:
+      - "4321:4321"
       - "8888:8888"
       - "9876:9876"
     volumes:
@@ -40,3 +50,8 @@ services:
       placement:
         constraints:
           - node.role != manager
+secrets:
+  commontheory_cert.pem:
+    external: true
+  commontheory_privkey.pem:
+    external: true
