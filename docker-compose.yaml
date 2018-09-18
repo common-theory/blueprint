@@ -18,10 +18,12 @@ services:
     secrets:
       - commontheory_cert.pem
       - commontheory_privkey.pem
+      - commontheory_fullchain.pem
     environment:
       ENABLE_HTTPS: 'true'
       HTTPS_CERT: /run/secrets/commontheory_cert.pem
       HTTPS_PRIVATE_KEY: /run/secrets/commontheory_privkey.pem
+      HTTPS_CERT_CA: /run/secrets/commontheory_fullchain.pem
       REDIRECT_HTTPS: 'true'
   mainnet:
     image: ctheory/eos-mainnet:latest
@@ -54,4 +56,6 @@ secrets:
   commontheory_cert.pem:
     external: true
   commontheory_privkey.pem:
+    external: true
+  commontheory_fullchain.pem:
     external: true
