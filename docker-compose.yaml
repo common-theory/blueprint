@@ -43,6 +43,21 @@ services:
       - "9876:9876"
     volumes:
       - "/mnt/volume1/mainnet:/data"
+  testnet-eosio:
+    image: ctheory/eos-testnet:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role != manager
+    secrets:
+      - eosio_key
+    volumes:
+      - "/mnt/volume1/testnet-boot:/data"
+    environment:
+      NODEOS_ARGS: --producer-name eosio --enable-stale-production
+      SIGNATURE_PROVIDER_PATH: /run/secrets/eosio_key
   testnet-producer:
     image: ctheory/eos-testnet:latest
     deploy:
@@ -53,10 +68,11 @@ services:
           - node.role != manager
     secrets:
       - commontheory_key
-    ports:
-      - "19876:9876"
     volumes:
       - "/mnt/volume1/testnet:/data"
+    environment:
+      NODEOS_ARGS: --producer-name commontheory --p2p-peer-address testnet-eosio:9876
+      SIGNATURE_PROVIDER_PATH: /run/secrets/commontheory_key
 secrets:
   commontheory_cert.pem:
     external: true
@@ -65,4 +81,6 @@ secrets:
   commontheory_fullchain.pem:
     external: true
   commontheory_key:
+    external: true
+  eosio_key:
     external: true
