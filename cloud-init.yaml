@@ -1,0 +1,36 @@
+#cloud-config
+
+users:
+  - name: ctheory
+    groups: sudo
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzdwD5nG+og435muHDSXpRKxtjyeegxppl13FKijulK4Emq+svRq3He1m6+GjiMIogLQGZglzfoDI771Lk0m35yYr2qFdvzvwc3/uw/N0Pf0GuGDnE96smlrxLDZ6NW6Dx0nGyS7K9EhRwkfq3J5blizylu+O9GcYifsZ48vsOdpF/r2tqUfR0TlVH8JHgcENyK8oGzNjZj+PQEum208evI1M51UxGoCPrqN4wIy193Ffbu18arKdcWW4+zZGz7zZYJrrgaHrbMC9mYTyBrarfQdpjj+eEDH+WAMOq/u5d+CUXsn/HiTQY1geE+8YmOrj24wUK61XE+n5oR4G0AIAR chance@Chances-MacBook-Pro.local
+power_state:
+  mode: reboot
+runcmd:
+  - export DEBIAN_FRONTEND=noninteractive
+  - sudo systemctl stop apt-daily.timer
+  - sudo systemctl disable apt-daily.timer
+  - sudo systemctl mask apt-daily.service
+  - sudo systemctl stop apt-daily.service
+  - sudo systemctl daemon-reload
+  - sudo killall apt.systemd.daily || echo "apt.systemd.daily is not running"
+  - sudo apt-get update
+  - sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+    awscli
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu
+    $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get install -y docker-ce
+  - sudo usermod -aG docker ctheory
+  - echo "Creating swapfile"
+  - sudo fallocate -l 1G /swapfile
+  - sudo chmod 600 /swapfile
+  - sudo mkswap /swapfile
+  - sudo swapon /swapfile
+  - echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+  - echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+  - echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
