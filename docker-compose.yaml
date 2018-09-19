@@ -43,19 +43,26 @@ services:
       - "9876:9876"
     volumes:
       - "/mnt/volume1/mainnet:/data"
-# TODO: Generate genesis block, create docker image, then implement here
-  testnet:
-    image: eosio/eos:v1.2.5
+  testnet-producer:
+    image: ctheory/eos-testnet:latest
     deploy:
       mode: replicated
-      replicas: 0
+      replicas: 1
       placement:
         constraints:
           - node.role != manager
+    secrets:
+      - commontheory_key
+    ports:
+      - "19876:9876"
+    volumes:
+      - "/mnt/volume1/testnet:/data"
 secrets:
   commontheory_cert.pem:
     external: true
   commontheory_privkey.pem:
     external: true
   commontheory_fullchain.pem:
+    external: true
+  commontheory_key:
     external: true
