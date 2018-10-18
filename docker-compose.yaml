@@ -1,10 +1,10 @@
 version: '3.7'
 services:
-  commontheoryio:
-    image: ctheory/static-server:latest
+  ipfs:
+    image: ipfs/go-ipfs:latest
     deploy:
-      mode: replicated
-      replicas: 2
+      endpoint_mode: dnsrr
+      replicas: 3
       placement:
         constraints:
           - node.role != manager
@@ -13,66 +13,88 @@ services:
           cpus: '0.25'
           memory: 512M
     ports:
-      - "80:3000"
-      - "443:3001"
-    secrets:
-      - commontheory_cert.pem
-      - commontheory_privkey.pem
-      - commontheory_fullchain.pem
-    environment:
-      ENABLE_HTTPS: 'true'
-      HTTPS_CERT: /run/secrets/commontheory_cert.pem
-      HTTPS_PRIVATE_KEY: /run/secrets/commontheory_privkey.pem
-      HTTPS_CERT_CA: /run/secrets/commontheory_fullchain.pem
-      REDIRECT_HTTPS: 'true'
-  mainnet:
-    image: ctheory/eos-mainnet:latest
+      - target: 4001
+        published: 4001
+        protocol: tcp
+        mode: host
+
+  nginx:
+    image: ctheory/alpine-nginx:latest
+    depends_on:
+      - ipfs
+      - swarmpit-app
     deploy:
-      mode: replicated
-      replicas: 2
+      replicas: 3
       placement:
         constraints:
           - node.role != manager
       resources:
         reservations:
-          cpus: '0.51'
-          memory: 1024M
+          cpus: '0.25'
+          memory: 256M
+    secrets:
+      - commontheory_cert.pem
+      - commontheory_privkey.pem
+      - commontheory_fullchain.pem
     ports:
-      - "4321:4321"
-      - "8888:8888"
-      - "9876:9876"
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+
+  swarmpit-app:
+    image: swarmpit/swarmpit:latest
+    environment:
+      - SWARMPIT_DB=http://swarmpit-db:5984
     volumes:
-      - "/mnt/volume1/mainnet:/data"
-  testnet-eosio:
-    image: ctheory/eos-testnet:latest
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     deploy:
-      mode: replicated
-      replicas: 1
+      endpoint_mode: dnsrr
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1024M
+        reservations:
+          cpus: '0.25'
+          memory: 512M
       placement:
         constraints:
-          - node.role != manager
-    secrets:
-      - eosio_key
+          - node.role == manager
+
+  swarmpit-db:
+    image: klaemo/couchdb:2.0.0
     volumes:
-      - "/mnt/volume1/testnet-boot:/data"
-    environment:
-      NODEOS_ARGS: --producer-name eosio --enable-stale-production
-      SIGNATURE_PROVIDER_PATH: /run/secrets/eosio_key
-  testnet-producer:
-    image: ctheory/eos-testnet:latest
+      - db-data:/opt/couchdb/data
     deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints:
-          - node.role != manager
-    secrets:
-      - commontheory_key
-    volumes:
-      - "/mnt/volume1/testnet:/data"
+      endpoint_mode: dnsrr
+      resources:
+        limits:
+          cpus: '0.30'
+          memory: 512M
+        reservations:
+          cpus: '0.15'
+          memory: 256M
+
+  swarmpit-agent:
+    image: swarmpit/agent:latest
     environment:
-      NODEOS_ARGS: --producer-name commontheory --p2p-peer-address testnet-eosio:9876
-      SIGNATURE_PROVIDER_PATH: /run/secrets/commontheory_key
+      - DOCKER_API_VERSION=1.35
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      endpoint_mode: dnsrr
+      mode: global
+      resources:
+        limits:
+          cpus: '0.10'
+          memory: 64M
+        reservations:
+          cpus: '0.05'
+          memory: 32M
 secrets:
   commontheory_cert.pem:
     external: true
@@ -84,3 +106,6 @@ secrets:
     external: true
   eosio_key:
     external: true
+
+volumes:
+  db-data:
