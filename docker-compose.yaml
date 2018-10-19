@@ -46,6 +46,18 @@ services:
         protocol: tcp
         mode: host
 
+  rinkeby:
+    image: ethereum/client-go:latest
+    command: --rinkeby --datadir=/data --rpc --rpcaddr 0.0.0.0 --rpcvhosts "*" --rpccorsdomain "*"
+    deploy:
+      endpoint_mode: dnsrr
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.network == rinkeby
+    volumes:
+      - "/mnt/volume1/rinkeby:/data"
+
   swarmpit-app:
     image: swarmpit/swarmpit:latest
     environment:
