@@ -55,6 +55,10 @@ services:
       placement:
         constraints:
           - node.labels.network == rinkeby
+      resources:
+        reservations:
+          cpus: '1.0'
+          memory: 1024M
     volumes:
       - "/mnt/volume1/rinkeby:/data"
 
