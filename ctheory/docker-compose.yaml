@@ -15,6 +15,8 @@ services:
 
   pinned-ipfs:
     image: ctheory/alpine-ipfs:v0.4.17
+    environment:
+      - CIDS_TO_PIN=/ipns/blockchains.ctheory.io
     deploy:
       endpoint_mode: dnsrr
       replicas: 2
