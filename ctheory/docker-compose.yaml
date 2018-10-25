@@ -21,7 +21,7 @@ services:
       placement:
         constraints:
           - node.role != manager
-          - node.volume1 == 1
+          - node.labels.volume1 == 1
       resources:
         limits:
           cpus: '0.25'
