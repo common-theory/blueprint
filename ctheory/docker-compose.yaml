@@ -15,21 +15,22 @@ services:
 
   pinned-ipfs:
     image: ctheory/alpine-ipfs:v0.4.17
-    environment:
-      - CIDS_TO_PIN=/ipns/blockchains.ctheory.io
     deploy:
       endpoint_mode: dnsrr
-      replicas: 0
+      replicas: 2
       placement:
         constraints:
           - node.role != manager
-          - node.labels.volume1 == 1
+          - node.volume1 == 1
       resources:
         limits:
           cpus: '0.25'
           memory: 512M
-    volumes:
-      - /mnt/volume1/ipfs:/root/.ipfs
+    ports:
+      - target: 4001
+        published: 4001
+        protocol: tcp
+        mode: host
 
   nginx:
     image: ctheory/alpine-nginx:latest
