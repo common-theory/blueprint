@@ -55,6 +55,6 @@ networks:
   common:
     name: common
     external: true
-  
+
 volumes:
   db-data:
