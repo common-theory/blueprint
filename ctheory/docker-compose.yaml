@@ -29,6 +29,8 @@ services:
         published: 4001
         protocol: tcp
         mode: host
+    volumes:
+      - "/mnt/volume1/ipfs:/root/.ipfs"
 
   nginx:
     image: ctheory/alpine-nginx:latest
