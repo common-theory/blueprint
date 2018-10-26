@@ -61,6 +61,8 @@ services:
         published: 443
         protocol: tcp
         mode: host
+    networks:
+      - common
 
   rinkeby:
     image: ethereum/client-go:latest
@@ -78,55 +80,11 @@ services:
     volumes:
       - "/mnt/volume1/rinkeby:/data"
 
-  swarmpit-app:
-    image: swarmpit/swarmpit:latest
-    environment:
-      - SWARMPIT_DB=http://swarmpit-db:5984
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    deploy:
-      endpoint_mode: dnsrr
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 1024M
-        reservations:
-          cpus: '0.25'
-          memory: 512M
-      placement:
-        constraints:
-          - node.role == manager
+networks:
+  common:
+    external:
+      name: common
 
-  swarmpit-db:
-    image: klaemo/couchdb:2.0.0
-    volumes:
-      - db-data:/opt/couchdb/data
-    deploy:
-      endpoint_mode: dnsrr
-      resources:
-        limits:
-          cpus: '0.30'
-          memory: 512M
-        reservations:
-          cpus: '0.15'
-          memory: 256M
-
-  swarmpit-agent:
-    image: swarmpit/agent:latest
-    environment:
-      - DOCKER_API_VERSION=1.35
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    deploy:
-      endpoint_mode: dnsrr
-      mode: global
-      resources:
-        limits:
-          cpus: '0.10'
-          memory: 64M
-        reservations:
-          cpus: '0.05'
-          memory: 32M
 secrets:
   commontheory_cert.pem:
     external: true
