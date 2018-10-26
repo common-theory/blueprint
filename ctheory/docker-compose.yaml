@@ -38,7 +38,6 @@ services:
     image: ctheory/alpine-nginx:latest
     depends_on:
       - ipfs
-      - swarmpit-app
     deploy:
       replicas: 3
       placement:
