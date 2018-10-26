@@ -53,7 +53,6 @@ services:
           memory: 32M
 networks:
   common:
-    external:
-      name: common
+    name: common
 volumes:
   db-data:

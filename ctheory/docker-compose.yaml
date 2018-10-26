@@ -82,8 +82,7 @@ services:
 
 networks:
   common:
-    external:
-      name: common
+    name: common
 
 secrets:
   commontheory_cert.pem:
