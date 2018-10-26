@@ -4,7 +4,7 @@ services:
     image: ctheory/alpine-ipfs:v0.4.17
     deploy:
       endpoint_mode: dnsrr
-      replicas: 3
+      replicas: 2
       placement:
         constraints:
           - node.role != manager
@@ -33,7 +33,7 @@ services:
       - ipfs
       - swarmpit-app
     deploy:
-      replicas: 3
+      replicas: 2
       placement:
         constraints:
           - node.role != manager
@@ -60,7 +60,7 @@ services:
     command: --rinkeby --datadir=/data --rpc --rpcaddr 0.0.0.0 --rpcvhosts "*" --rpccorsdomain "*"
     deploy:
       endpoint_mode: dnsrr
-      replicas: 1
+      replicas: 0
       placement:
         constraints:
           - node.labels.network == rinkeby
