@@ -26,8 +26,8 @@ services:
           - node.labels.volume1 == 1
       resources:
         limits:
-          cpus: '0.25'
-          memory: 512M
+          cpus: '2'
+          memory: 2048M
     ports:
       - target: 4001
         published: 4001
