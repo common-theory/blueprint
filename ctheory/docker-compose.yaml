@@ -71,6 +71,22 @@ services:
     volumes:
       - "/mnt/volume1/rinkeby:/data"
 
+  homestead:
+    image: ethereum/client-go:latest
+    command: --datadir=/data --rpc --rpcaddr 0.0.0.0 --rpcvhosts "*" --rpccorsdomain "*"
+    deploy:
+      endpoint_mode: dnsrr
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.network == homestead
+      resources:
+        reservations:
+          cpus: '1.0'
+          memory: 1024M
+    volumes:
+      - "/mnt/volume1/homestead:/data"
+
   swarmpit-app:
     image: swarmpit/swarmpit:latest
     environment:
