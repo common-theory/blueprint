@@ -18,6 +18,19 @@ services:
           cpus: '0.5'
           memory: 512M
 
+  dnslink-cid-badge:
+    image: ctheory/dnslink-cid-badge:latest
+    deploy:
+      endpoint_mode: dnsrr
+      replicas: 2
+      placement:
+        constraints:
+          - node.role != manager
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 64M
+
   nginx:
     image: ctheory/alpine-nginx:latest
     depends_on:
