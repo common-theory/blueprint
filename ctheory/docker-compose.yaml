@@ -68,7 +68,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.labels.network == rinkeby
+          - node.labels.rinkeby == 1
       resources:
         reservations:
           cpus: '1.0'
@@ -84,7 +84,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.labels.network == homestead
+          - node.labels.homestead == 1
       resources:
         reservations:
           cpus: '1.0'
