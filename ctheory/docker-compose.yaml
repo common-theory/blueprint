@@ -3,7 +3,7 @@ services:
   common-hosting:
     image: ctheory/common-hosting-server:latest
     deploy:
-      mode: global
+      replicas: 0
 
   ipfs:
     image: ctheory/alpine-ipfs:v0.4.17
