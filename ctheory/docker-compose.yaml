@@ -15,7 +15,7 @@ services:
           - node.role != manager
       resources:
         limits:
-          cpus: '0.5'
+          cpus: '0.25'
           memory: 512M
     volumes:
       - "/mnt/volume1/ipfs:/root/.ipfs"
@@ -30,8 +30,8 @@ services:
           - node.role != manager
       resources:
         limits:
-          cpus: '0.1'
-          memory: 64M
+          cpus: '0.2'
+          memory: 128M
 
   dnslink-cid-badge:
     image: ctheory/dnslink-cid-badge:latest
@@ -58,7 +58,7 @@ services:
           - node.role != manager
       resources:
         reservations:
-          cpus: '0.25'
+          cpus: '0.2'
           memory: 256M
     secrets:
       - commontheory_cert.pem
