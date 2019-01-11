@@ -82,7 +82,7 @@ services:
     command: --datadir=/data --rpc --rpcaddr 0.0.0.0 --rpcvhosts "*" --rpccorsdomain "*"
     deploy:
       endpoint_mode: dnsrr
-      replicas: 0
+      replicas: 1
       placement:
         constraints:
           - node.labels.homestead == 1
