@@ -32,6 +32,10 @@ services:
         limits:
           cpus: '0.2'
           memory: 128M
+    secrets:
+      - cidhook_secret
+    environment:
+      - CIDHOOK_SECRET_PATH: '/run/secrets/cidhook_secret'
 
   dnslink-cid-badge:
     image: ctheory/dnslink-cid-badge:latest
@@ -114,4 +118,6 @@ secrets:
   commontheory_fullchain.pem:
     external: true
   eosio_key:
+    external: true
+  cidhook_secret:
     external: true
