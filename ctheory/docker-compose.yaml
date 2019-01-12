@@ -35,7 +35,7 @@ services:
     secrets:
       - cidhook_secret
     environment:
-      - CIDHOOK_SECRET_PATH: '/run/secrets/cidhook_secret'
+      - CIDHOOK_SECRET_PATH=/run/secrets/cidhook_secret
 
   dnslink-cid-badge:
     image: ctheory/dnslink-cid-badge:latest
