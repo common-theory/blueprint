@@ -20,8 +20,8 @@ services:
     volumes:
       - "/mnt/volume1/ipfs:/root/.ipfs"
 
-  cidhook:
-    image: jchancehud/cidhook:latest
+  cidhookd:
+    image: jchancehud/cidhookd:latest
     deploy:
       endpoint_mode: dnsrr
       replicas: 1
