@@ -51,7 +51,7 @@ services:
           memory: 64M
 
   nginx:
-    image: ctheory/alpine-nginx:latest
+    image: jchancehud/alpine-nginx:latest
     depends_on:
       - ipfs
       - rinkeby
@@ -68,6 +68,8 @@ services:
       - commontheory_cert.pem
       - commontheory_privkey.pem
       - commontheory_fullchain.pem
+    environment:
+      - CONFIG_URL=https://raw.githubusercontent.com/common-theory/blueprint/master/nginx.conf
     ports:
       - target: 80
         published: 80
