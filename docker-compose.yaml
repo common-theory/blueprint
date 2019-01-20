@@ -85,13 +85,13 @@ services:
     command: --rinkeby --datadir=/data --rpc --rpcaddr 0.0.0.0 --rpcvhosts "*" --rpccorsdomain "*"
     deploy:
       endpoint_mode: dnsrr
-      replicas: 0
+      replicas: 1
       placement:
         constraints:
           - node.labels.rinkeby == 1
       resources:
         reservations:
-          cpus: '0.5'
+          cpus: '0.3'
           memory: 512M
     volumes:
       - "/mnt/volume1/rinkeby:/data"
@@ -107,8 +107,8 @@ services:
           - node.labels.homestead == 1
       resources:
         reservations:
-          cpus: '0.6'
-          memory: 1024M
+          cpus: '0.3'
+          memory: 512M
     volumes:
       - "/mnt/volume1/homestead:/data"
 
