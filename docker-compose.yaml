@@ -91,7 +91,6 @@ services:
           - node.labels.rinkeby == 1
       resources:
         reservations:
-          cpus: '0.4'
           memory: 1024M
     volumes:
       - "/mnt/volume2/rinkeby:/data"
@@ -107,7 +106,6 @@ services:
           - node.labels.homestead == 1
       resources:
         reservations:
-          cpus: '0.4'
           memory: 1024M
     volumes:
       - "/mnt/volume2/homestead:/data"
