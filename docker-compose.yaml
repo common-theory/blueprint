@@ -18,7 +18,7 @@ services:
           cpus: '0.2'
           memory: 256M
     volumes:
-      - "/mnt/volume1/ipfs:/root/.ipfs"
+      - "/mnt/volume2/ipfs:/root/.ipfs"
 
   cidhookd:
     image: jchancehud/cidhookd:latest
@@ -94,7 +94,7 @@ services:
           cpus: '0.3'
           memory: 512M
     volumes:
-      - "/mnt/volume1/rinkeby:/data"
+      - "/mnt/volume2/rinkeby:/data"
 
   homestead:
     image: ethereum/client-go:latest
@@ -110,7 +110,7 @@ services:
           cpus: '0.3'
           memory: 512M
     volumes:
-      - "/mnt/volume1/homestead:/data"
+      - "/mnt/volume2/homestead:/data"
 
 secrets:
   commontheory_cert.pem:
