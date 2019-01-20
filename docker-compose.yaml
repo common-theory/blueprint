@@ -15,7 +15,7 @@ services:
           - node.role != manager
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.05'
           memory: 256M
     volumes:
       - "/mnt/volume2/ipfs:/root/.ipfs"
@@ -30,7 +30,7 @@ services:
           - node.role != manager
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.05'
           memory: 128M
     secrets:
       - cidhook_secret
@@ -47,7 +47,7 @@ services:
           - node.role != manager
       resources:
         limits:
-          cpus: '0.1'
+          cpus: '0.05'
           memory: 64M
 
   nginx:
@@ -62,7 +62,7 @@ services:
           - node.role != manager
       resources:
         reservations:
-          cpus: '0.1'
+          cpus: '0.05'
           memory: 128M
     secrets:
       - commontheory_cert.pem
@@ -91,8 +91,8 @@ services:
           - node.labels.rinkeby == 1
       resources:
         reservations:
-          cpus: '0.3'
-          memory: 512M
+          cpus: '0.4'
+          memory: 1024M
     volumes:
       - "/mnt/volume2/rinkeby:/data"
 
@@ -107,8 +107,8 @@ services:
           - node.labels.homestead == 1
       resources:
         reservations:
-          cpus: '0.3'
-          memory: 512M
+          cpus: '0.4'
+          memory: 1024M
     volumes:
       - "/mnt/volume2/homestead:/data"
 
