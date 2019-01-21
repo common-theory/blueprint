@@ -88,13 +88,43 @@ services:
       replicas: 1
       placement:
         constraints:
+          - node.labels.rinkeby == 1
+      resources:
+        reservations:
+          memory: 1024M
+    volumes:
+      - "/mnt/volume2/rinkeby:/data"
+
+  homestead:
+    image: ethereum/client-go:latest
+    command: --datadir=/data --rpc --rpcaddr 0.0.0.0 --rpcvhosts "*" --rpccorsdomain "*"
+    deploy:
+      endpoint_mode: dnsrr
+      replicas: 1
+      placement:
+        constraints:
+          - node.labels.homestead == 1
+      resources:
+        reservations:
+          memory: 1024M
+    volumes:
+      - "/mnt/volume2/homestead:/data"
+
+  rinkeby_sync:
+    image: ethereum/client-go:latest
+    command: --rinkeby --datadir=/data --rpc --rpcaddr 0.0.0.0 --rpcvhosts "*" --rpccorsdomain "*"
+    deploy:
+      endpoint_mode: dnsrr
+      replicas: 1
+      placement:
+        constraints:
           - node.labels.chainsync == 1
       resources:
         reservations:
     volumes:
       - "/mnt/blockchains_tor1/rinkeby:/data"
 
-  homestead:
+  homestead_sync:
     image: ethereum/client-go:latest
     command: --datadir=/data --rpc --rpcaddr 0.0.0.0 --rpcvhosts "*" --rpccorsdomain "*"
     deploy:
