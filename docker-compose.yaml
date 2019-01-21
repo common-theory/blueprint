@@ -88,12 +88,11 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.labels.rinkeby == 1
+          - node.labels.chainsync == 1
       resources:
         reservations:
-          memory: 1024M
     volumes:
-      - "/mnt/volume2/rinkeby:/data"
+      - "/mnt/blockchains_tor1/rinkeby:/data"
 
   homestead:
     image: ethereum/client-go:latest
@@ -103,12 +102,11 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.labels.homestead == 1
+          - node.labels.chainsync == 1
       resources:
         reservations:
-          memory: 1024M
     volumes:
-      - "/mnt/volume2/homestead:/data"
+      - "/mnt/blockchains_tor1/homestead:/data"
 
 secrets:
   commontheory_cert.pem:
