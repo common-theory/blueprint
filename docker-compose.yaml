@@ -119,8 +119,6 @@ services:
       placement:
         constraints:
           - node.labels.chainsync == 1
-      resources:
-        reservations:
     volumes:
       - "/mnt/blockchains_tor1/rinkeby:/data"
 
@@ -133,8 +131,6 @@ services:
       placement:
         constraints:
           - node.labels.chainsync == 1
-      resources:
-        reservations:
     volumes:
       - "/mnt/blockchains_tor1/homestead:/data"
 
