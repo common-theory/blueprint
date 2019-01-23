@@ -36,6 +36,7 @@ services:
       - cidhook_secret
     environment:
       - CIDHOOK_SECRET_PATH=/run/secrets/cidhook_secret
+      - IPFS_HOST=ipfs
 
   dnslink-cid-badge:
     image: ctheory/dnslink-cid-badge:latest
