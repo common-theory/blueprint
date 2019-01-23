@@ -21,8 +21,6 @@ services:
 
   cidhookd:
     image: jchancehud/cidhookd:latest
-    depends_on:
-      - ipfs
     deploy:
       endpoint_mode: dnsrr
       replicas: 1
@@ -33,11 +31,12 @@ services:
         limits:
           cpus: '0.1'
           memory: 128M
+    volumes:
+      - "/mnt/volume2/jsipfs:/root/.jsipfs"
     secrets:
       - cidhook_secret
     environment:
       - CIDHOOK_SECRET_PATH=/run/secrets/cidhook_secret
-      - IPFS_HOST=ipfs
 
   dnslink-cid-badge:
     image: ctheory/dnslink-cid-badge:latest
