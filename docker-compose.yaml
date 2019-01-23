@@ -55,6 +55,8 @@ services:
     depends_on:
       - ipfs
       - rinkeby
+      - cidhookd
+      - dnslink-cid-badge
     deploy:
       replicas: 1
       placement:
