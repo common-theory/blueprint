@@ -12,8 +12,6 @@ services:
         limits:
           cpus: '0.3'
           memory: 256M
-    volumes:
-      - "/mnt/volume2/ipfs:/root/.ipfs"
     ports:
       - target: 4001
         published: 4001
@@ -34,6 +32,7 @@ services:
           memory: 512M
     volumes:
       - "/mnt/volume2/jsipfs:/root/.jsipfs"
+      - "/mnt/volume2/ipfs:/root/.ipfs"
     secrets:
       - cidhook_secret
     # environment:
