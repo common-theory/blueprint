@@ -35,8 +35,8 @@ services:
       - "/mnt/volume2/jsipfs:/root/.jsipfs"
     secrets:
       - cidhook_secret
-    environment:
-      - CIDHOOK_SECRET_PATH=/run/secrets/cidhook_secret
+    # environment:
+      # - CIDHOOK_SECRET_PATH=/run/secrets/cidhook_secret
 
   dnslink-cid-badge:
     image: ctheory/dnslink-cid-badge:latest
