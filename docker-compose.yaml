@@ -8,7 +8,6 @@ services:
   ipfs:
     image: ctheory/alpine-ipfs:v0.4.18
     deploy:
-      endpoint_mode: dnsrr
       replicas: 1
       placement:
         constraints:
@@ -22,6 +21,8 @@ services:
 
   cidhookd:
     image: jchancehud/cidhookd:latest
+    depends_on:
+      - ipfs
     deploy:
       endpoint_mode: dnsrr
       replicas: 1
