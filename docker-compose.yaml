@@ -10,7 +10,7 @@ services:
           - node.role != manager
       resources:
         limits:
-          cpus: '0.2'
+          cpus: '0.3'
           memory: 256M
     volumes:
       - "/mnt/volume2/ipfs:/root/.ipfs"
@@ -30,8 +30,8 @@ services:
           - node.role != manager
       resources:
         limits:
-          cpus: '0.1'
-          memory: 128M
+          cpus: '0.5'
+          memory: 512M
     volumes:
       - "/mnt/volume2/jsipfs:/root/.jsipfs"
     secrets:
