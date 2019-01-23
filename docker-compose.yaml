@@ -20,7 +20,10 @@ services:
     volumes:
       - "/mnt/volume2/ipfs:/root/.ipfs"
     ports:
-      - 4001
+      - target: 4001
+        published: 4001
+        protocol: tcp
+        mode: host
 
   cidhookd:
     image: jchancehud/cidhookd:latest
