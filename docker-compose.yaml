@@ -8,6 +8,7 @@ services:
   ipfs:
     image: ctheory/alpine-ipfs:v0.4.18
     deploy:
+      endpoint_mode: dnsrr
       replicas: 1
       placement:
         constraints:
@@ -18,6 +19,8 @@ services:
           memory: 256M
     volumes:
       - "/mnt/volume2/ipfs:/root/.ipfs"
+    ports:
+      - 4001
 
   cidhookd:
     image: jchancehud/cidhookd:latest
