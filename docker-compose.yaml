@@ -1,23 +1,5 @@
 version: '3.7'
 services:
-  ipfs:
-    image: ctheory/alpine-ipfs:v0.4.18
-    deploy:
-      endpoint_mode: dnsrr
-      replicas: 1
-      placement:
-        constraints:
-          - node.role != manager
-      resources:
-        limits:
-          cpus: '0.3'
-          memory: 256M
-    ports:
-      - target: 4001
-        published: 4001
-        protocol: tcp
-        mode: host
-
   cidhookd:
     image: jchancehud/cidhookd:latest
     deploy:
@@ -37,6 +19,11 @@ services:
       - cidhook_secret
     # environment:
       # - CIDHOOK_SECRET_PATH=/run/secrets/cidhook_secret
+    ports:
+      - target: 4001
+        published: 4001
+        protocol: tcp
+        mode: host
 
   dnslink-cid-badge:
     image: ctheory/dnslink-cid-badge:latest
@@ -54,7 +41,6 @@ services:
   nginx:
     image: jchancehud/alpine-nginx:latest
     depends_on:
-      - ipfs
       - rinkeby
       - cidhookd
       - dnslink-cid-badge
