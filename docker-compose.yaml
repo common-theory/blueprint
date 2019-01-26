@@ -57,6 +57,9 @@ services:
       - commontheory_cert.pem
       - commontheory_privkey.pem
       - commontheory_fullchain.pem
+      - ctheory_cert.pem
+      - ctheory_privkey.pem
+      - ctheory_fullchain.pem
     environment:
       - CONFIG_URL=https://raw.githubusercontent.com/common-theory/blueprint/master/nginx.conf
     ports:
@@ -105,6 +108,12 @@ secrets:
   commontheory_privkey.pem:
     external: true
   commontheory_fullchain.pem:
+    external: true
+  ctheory_cert.pem:
+    external: true
+  ctheory_privkey.pem:
+    external: true
+  ctheory_fullchain.pem:
     external: true
   eosio_key:
     external: true
