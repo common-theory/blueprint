@@ -7,6 +7,7 @@ users:
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh-authorized-keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzdwD5nG+og435muHDSXpRKxtjyeegxppl13FKijulK4Emq+svRq3He1m6+GjiMIogLQGZglzfoDI771Lk0m35yYr2qFdvzvwc3/uw/N0Pf0GuGDnE96smlrxLDZ6NW6Dx0nGyS7K9EhRwkfq3J5blizylu+O9GcYifsZ48vsOdpF/r2tqUfR0TlVH8JHgcENyK8oGzNjZj+PQEum208evI1M51UxGoCPrqN4wIy193Ffbu18arKdcWW4+zZGz7zZYJrrgaHrbMC9mYTyBrarfQdpjj+eEDH+WAMOq/u5d+CUXsn/HiTQY1geE+8YmOrj24wUK61XE+n5oR4G0AIAR chance@Chances-MacBook-Pro.local
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC4BZ1INRbqsWaQw7aSqizooyY4UV5rhmGQzGMl86QHz5H/uT+HSFpl/ruU5v5egGDwoHAAO2E0kCb8kfEOddWl1/AqzN5azIwytmwiClU8lEJQ4U7B2bs/dFi3hyQDORRwKOFX6lh175rfN21rXZ0h6/jz5wzqtytJTu5D+yWhHQ1X3Ks+yEQncOYjlza5ZMaCydUWElwf/hvWOh+nptDvgIqYv/dqFR+h/Gp24scFrmlQOwDzXmw5GfBXewIIFr/HqxfgbjGLCgS69xJC5tsk+ZjYIrD6fGgxxOimZStu0hSYEhEyA4Y2YIeS9ULL2YfKAzHNR0q9toVu4zC4Lxo5 mobile
 power_state:
   mode: reboot
 runcmd:
