@@ -37,7 +37,6 @@ services:
   nginx:
     image: jchancehud/alpine-nginx:latest
     depends_on:
-      - rinkeby
       - cidhookd
       - dnslink-cid-badge
     deploy:
